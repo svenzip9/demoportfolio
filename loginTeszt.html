@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-200 h-screen flex items-center justify-center">
+
+  <div id="app" class="max-w-md w-full">
+    <div v-if="!loggedIn" class="bg-white p-8 rounded shadow-md">
+      <h1 class="text-2xl font-bold mb-4">Login</h1>
+      <form @submit.prevent="login">
+        <div class="mb-4">
+          <label for="username" class="block text-sm font-medium text-gray-700">Username <span class="text-opacity-50">(admin)</span></label>
+          <input v-model="username" type="text" id="username" name="username" class="mt-1 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-700">Password <span class="text-opacity-50">(asd123)</span></label>
+          <input v-model="password" type="password" id="password" name="password" class="mt-1 p-2 border rounded w-full">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white p-2 rounded">Login</button>
+      </form>
+    </div>
+    <div v-if="loggedIn" class="bg-white p-8 rounded shadow-md">
+      <h1 class="text-2xl font-bold mb-4">Welcome, {{ username }}!</h1>
+      <p>You have successfully logged in.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        username: '',
+        password: '',
+        loggedIn: false,
+      },
+      methods: {
+        login() {
+          if (this.username === 'admin' && this.password === 'asd123') {
+            this.loggedIn = true;
+          } else {
+            alert('Invalid username or password. Please try again.');
+          }
+        },
+      },
+    });
+  </script>
+</body>
+</html>

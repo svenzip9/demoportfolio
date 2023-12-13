@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Blog</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-4">
+
+  <div id="app" class="max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4">Simple Blog</h1>
+
+    <!-- Form for creating a new blog post -->
+    <form @submit.prevent="addPost" class="mb-4">
+      <label for="title" class="block text-sm font-medium text-gray-600">Title:</label>
+      <input v-model="newPost.title" type="text" id="title" name="title" class="mt-1 p-2 border rounded-md w-full" required>
+
+      <label for="content" class="block mt-2 text-sm font-medium text-gray-600">Content:</label>
+      <textarea v-model="newPost.content" id="content" name="content" rows="4" class="mt-1 p-2 border rounded-md w-full" required></textarea>
+
+      <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md">Add Post</button>
+    </form>
+
+    <!-- Display the list of blog posts -->
+    <div v-if="posts.length" class="space-y-4">
+      <div v-for="(post, index) in posts" :key="index" class="bg-white p-4 rounded-md shadow">
+        <h2 class="text-xl font-bold">{{ post.title }}</h2>
+        <p class="mt-2 text-gray-600">{{ post.content }}</p>
+      </div>
+    </div>
+    <p v-else>No posts available.</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        newPost: {
+          title: '',
+          content: ''
+        },
+        posts: []
+      },
+      methods: {
+        addPost() {
+          // Add the new post to the list
+          this.posts.push({ 
+             title: this.newPost.title,
+             content: this.newPost.content
+           });
+
+          // Clear the form fields
+          this.newPost.title = '';
+          this.newPost.content = '';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
